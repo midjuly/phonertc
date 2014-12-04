@@ -34,8 +34,32 @@ class PCObserver : NSObject, RTCPeerConnectionDelegate {
     
     func peerConnection(peerConnection: RTCPeerConnection!,
         iceGatheringChanged newState: RTCICEGatheringState) {
-        println("PCO onIceGatheringChange. \(newState)")
-        
+            println("PCO onIceGatheringChange. \(newState)")
+
+            var jsonError: NSError?
+            var strState = ""
+
+            switch newState.value {
+            case RTCICEGatheringNew.value:
+                strState = "NEW"
+            case RTCICEGatheringGathering.value:
+                strState = "GATHERING"
+            case RTCICEGatheringComplete.value:
+                strState = "COMPLETE"
+            default:
+                strState = ""
+            }
+
+            let json: AnyObject = [
+                "type": "IceGatheringChange",
+                "state": strState
+            ]
+
+            let data = NSJSONSerialization.dataWithJSONObject(json,
+                options: NSJSONWritingOptions.allZeros,
+                error: &jsonError)
+
+            self.session.sendMessage(data!)
     }
     
     func peerConnection(peerConnection: RTCPeerConnection!,
