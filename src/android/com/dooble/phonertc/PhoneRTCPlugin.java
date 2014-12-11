@@ -66,7 +66,7 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 				public void run() {					
 					if (!_initializedAndroidGlobals) {
 						abortUnless(PeerConnectionFactory.initializeAndroidGlobals(cordova.getActivity(), true, true, 
-								VideoRendererGui.getEGLContext()),
+								true, VideoRendererGui.getEGLContext()),
 								"Failed to initializeAndroidGlobals");
 						_initializedAndroidGlobals = true;
 					}
@@ -157,7 +157,7 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 				public void run() {
 					if (!_initializedAndroidGlobals) {
 						abortUnless(PeerConnectionFactory.initializeAndroidGlobals(cordova.getActivity(), true, true, 
-								VideoRendererGui.getEGLContext()),
+								true, VideoRendererGui.getEGLContext()),
 								"Failed to initializeAndroidGlobals");
 						_initializedAndroidGlobals = true;
 					}
@@ -355,7 +355,7 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 
 					pair.setVideoRenderer(new VideoRenderer(
 							VideoRendererGui.create(x, y, videoSizeAsPercentage, videoSizeAsPercentage, 
-									VideoRendererGui.ScalingType.SCALE_FILL)));
+									VideoRendererGui.ScalingType.SCALE_FILL, false)));
 				
 					pair.getVideoTrack().addRenderer(pair.getVideoRenderer());
 					
@@ -371,7 +371,8 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 												getPercentage(_videoConfig.getLocal().getY(), _videoConfig.getContainer().getHeight()), 
 												getPercentage(_videoConfig.getLocal().getWidth(), _videoConfig.getContainer().getWidth()), 
 												getPercentage(_videoConfig.getLocal().getHeight(), _videoConfig.getContainer().getHeight()), 
-												VideoRendererGui.ScalingType.SCALE_FILL)));
+												VideoRendererGui.ScalingType.SCALE_FILL,
+												false)));
 				
 			}
 		}
