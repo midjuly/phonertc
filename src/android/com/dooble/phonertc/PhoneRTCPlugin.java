@@ -57,9 +57,9 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 		final CallbackContext _callbackContext = callbackContext;
 		
 		if (action.equals("createSessionObject")) {		
-			final SessionConfig config = SessionConfig.fromJSON(args.getJSONObject(0));
+			final SessionConfig config = SessionConfig.fromJSON(args.getJSONObject(1));
 			
-			final String sessionKey = UUID.randomUUID().toString();
+			final String sessionKey = args.getString(0);
 			_callbackContext.sendPluginResult(getSessionKeyPluginResult(sessionKey));
 			
 			cordova.getActivity().runOnUiThread(new Runnable() {
@@ -99,8 +99,15 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 			
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
-					if (_sessions.containsKey(sessionKey)) {
-						_sessions.get(sessionKey).call();
+					try {
+						if (_sessions.containsKey(sessionKey)) {
+							_sessions.get(sessionKey).call();
+							_callbackContext.success();
+						} else {
+							_callbackContext.error("No session found matching the key: '" + sessionKey + "'");
+						}
+					} catch(Exception e) {
+						_callbackContext.error(e.getMessage());
 					}
 				}
 			});
@@ -355,7 +362,11 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 
 					pair.setVideoRenderer(new VideoRenderer(
 							VideoRendererGui.create(x, y, videoSizeAsPercentage, videoSizeAsPercentage, 
+<<<<<<< HEAD
 									VideoRendererGui.ScalingType.SCALE_FILL, false)));
+=======
+									VideoRendererGui.ScalingType.SCALE_FILL, true)));
+>>>>>>> upstream/master
 				
 					pair.getVideoTrack().addRenderer(pair.getVideoRenderer());
 					
@@ -372,7 +383,11 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 												getPercentage(_videoConfig.getLocal().getWidth(), _videoConfig.getContainer().getWidth()), 
 												getPercentage(_videoConfig.getLocal().getHeight(), _videoConfig.getContainer().getHeight()), 
 												VideoRendererGui.ScalingType.SCALE_FILL,
+<<<<<<< HEAD
 												false)));
+=======
+												true)));
+>>>>>>> upstream/master
 				
 			}
 		}
