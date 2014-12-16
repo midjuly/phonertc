@@ -362,11 +362,7 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 
 					pair.setVideoRenderer(new VideoRenderer(
 							VideoRendererGui.create(x, y, videoSizeAsPercentage, videoSizeAsPercentage, 
-<<<<<<< HEAD
-									VideoRendererGui.ScalingType.SCALE_FILL, false)));
-=======
 									VideoRendererGui.ScalingType.SCALE_FILL, true)));
->>>>>>> upstream/master
 				
 					pair.getVideoTrack().addRenderer(pair.getVideoRenderer());
 					
@@ -383,11 +379,7 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 												getPercentage(_videoConfig.getLocal().getWidth(), _videoConfig.getContainer().getWidth()), 
 												getPercentage(_videoConfig.getLocal().getHeight(), _videoConfig.getContainer().getHeight()), 
 												VideoRendererGui.ScalingType.SCALE_FILL,
-<<<<<<< HEAD
-												false)));
-=======
 												true)));
->>>>>>> upstream/master
 				
 			}
 		}
