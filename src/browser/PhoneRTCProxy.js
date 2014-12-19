@@ -22,6 +22,11 @@ function Session(sessionKey, config, sendMessageCallback) {
         id: event.candidate.sdpMid,
         candidate: event.candidate.candidate
       });
+    } else {
+      self.sendMessage({
+        type: 'IceGatheringChange',
+        state: 'COMPLETE'
+      });
     }
   };
 
