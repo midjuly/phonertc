@@ -118,7 +118,8 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 			final String sessionKey = container.getString("sessionKey");
 			final String message = container.getString("message");
 
-			cordova.getThreadPool().execute(new Runnable() {
+			//cordova.getThreadPool().execute(new Runnable() {
+			cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					_sessions.get(sessionKey).receiveMessage(message);
 				}
@@ -311,7 +312,8 @@ public class PhoneRTCPlugin extends CordovaPlugin {
 				_videoConfig.getContainer().getHeight() * _videoConfig.getDevicePixelRatio());
 
 		_videoView = new VideoGLView(cordova.getActivity(), size);
-		VideoRendererGui.setView(_videoView);
+		//VideoRendererGui.setView(_videoView);
+		VideoRendererGui.setView(_videoView, null);
 	
 		webView.addView(_videoView, _videoParams);
 	}
